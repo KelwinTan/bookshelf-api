@@ -1,7 +1,10 @@
+const BookController = require('../controllers/BookController');
+
 const routes = [
   {
-    method: 'GET',
-    path: '/',
+    method: 'POST',
+    path: '/books',
+    handler: BookController.store,
   },
 ];
 
