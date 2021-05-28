@@ -1,50 +1,42 @@
-const Sequelize = require('sequelize');
+const {
+  Model,
+} = require('sequelize');
 
-const db = require('../config/database');
-
-const { DataTypes } = Sequelize;
-
-const Book = db.define('books', {
-  id: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    primaryKey: true,
-  },
-  name: {
-    type: DataTypes.STRING,
-  },
-  year: {
-    type: DataTypes.INTEGER,
-  },
-  author: {
-    type: DataTypes.STRING,
-  },
-  summary: {
-    type: DataTypes.STRING,
-  },
-  publisher: {
-    type: DataTypes.STRING,
-  },
-  pageCount: {
-    type: DataTypes.INTEGER,
-  },
-  readPage: {
-    type: DataTypes.INTEGER,
-  },
-  finished: {
-    type: DataTypes.BOOLEAN,
-  },
-  reading: {
-    type: DataTypes.BOOLEAN,
-  },
-  insertedAt: {
-    type: DataTypes.DATE,
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-  },
-}, {
-  freezeTableName: true,
-});
-
-module.exports = { Book };
+module.exports = (sequelize, DataTypes) => {
+  class Book extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate() {
+      // define association here
+    }
+  }
+  Book.init({
+    id: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      primaryKey: true,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    year: DataTypes.INTEGER,
+    author: DataTypes.STRING,
+    summary: DataTypes.STRING,
+    publisher: DataTypes.STRING,
+    pageCount: DataTypes.INTEGER,
+    readPage: DataTypes.INTEGER,
+    finished: DataTypes.BOOLEAN,
+    reading: DataTypes.BOOLEAN,
+    insertedAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE,
+  }, {
+    sequelize,
+    modelName: 'Book',
+    timestamps: false,
+  });
+  return Book;
+};
